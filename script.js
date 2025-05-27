@@ -1,13 +1,16 @@
-async function fetchImages(query, maxResults = 20) {
+//Busca Dados de uma API publica da nasa.
+async function fetchImages(query, maxResults = 15) {
     const url = `https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('Erro ao buscar imagens da NASA');
     const data = await res.json();
 
+    //filtra os resultados e exibe de acordo com a busca do usuario.
     const items = data.collection.items
         .filter(item => item.links && item.links.length > 0)
         .slice(0, maxResults);
 
+        //busca descricao, imagem e titulo dos dados enviados pela nasa.
     return items.map(item => ({
         title: item.data[0].title,
         description: item.data[0].description,
@@ -15,10 +18,12 @@ async function fetchImages(query, maxResults = 20) {
     }));
 }
 
+//um dicionario pra fazer com que o usuario possa digitar em portugues.
 const dicionario = {
-    "buraco negro": "black hole",
+    "buraco negro, buracos negros": "black hole",
     "supernova": "supernova",
     "meteoro": "meteor",
+    "meteoros": "meteor",
     "nebulosa": "nebula",
     "galáxia": "galaxy",
     "estrela": "star",
@@ -27,31 +32,12 @@ const dicionario = {
     "cometa": "comet"
 };
 
+//uma funçao pronta pra caso queira traduzir o site com API, porem é paga.
 function traduzirLocalmente(termo) {
     return dicionario[termo.toLowerCase()] || termo;
 }
 
-async function traduzirLibre(texto) {
-    const response = await fetch('http://localhost:3000/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            q: texto,
-            source: 'en',
-            target: 'pt',
-            format: 'text'
-        })
-    });
-
-    if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error);
-    }
-
-    const data = await response.json();
-    return data.translatedText;
-}
-
+//funcao que busca todos os dados prontos da API em json e transforma em HTML, e exibe na sua tela.
 async function search() {
     const termo = document.getElementById('searchInput').value.trim();
     const query = traduzirLocalmente(termo);
@@ -101,7 +87,7 @@ async function search() {
     gallery.appendChild(div);
 }
 
-
+//se o servidor da nasa nao enviar as imagens a tempo, mostra mensagem de erro.
     } catch (error) {
         gallery.innerHTML = `<p>Erro ao carregar imagens: ${error.message}</p>`;
         console.error(error);
@@ -109,3 +95,11 @@ async function search() {
 
 }
 
+//Cria um evento que ao pressionar tecla enter chama a funcao de busca.
+const inputSearch = document.getElementById('searchInput');
+
+inputSearch.addEventListener('keydown', function(tecla){
+    if (tecla.key === 'Enter') {
+        search();
+    }
+})

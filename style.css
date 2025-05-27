@@ -1,9 +1,11 @@
    body {
       font-family: Arial, sans-serif;
       padding: 1rem;
-      background: #111;
+      background: url(espaco-tres-dimensoes-3d.jpg);
+      background-size: cover;
       color: #eee;
       text-align: center;
+      
     }
     h1 {
       margin-bottom: 1rem;
@@ -35,6 +37,7 @@
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
+      
     }
     .image-item {
       width: 240px;
