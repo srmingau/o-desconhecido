@@ -1,0 +1,84 @@
+   body {
+      font-family: Arial, sans-serif;
+      padding: 1rem;
+      background: url(espaco-tres-dimensoes-3d.jpg);
+      background-size: cover;
+      color: #eee;
+      text-align: center;
+      
+    }
+
+    .h2menu {
+      cursor: pointer;
+    }
+
+    #menulateral {
+       display: flex;
+       flex-direction: column;
+       align-items: start;
+       width: 30%;
+       margin-top: -3em;
+    }
+
+    summary::marker {
+      font-size: 30px;
+      content: '☰';
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+    input#searchInput {
+      padding: 0.5rem;
+      width: 250px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+    }
+
+    .pesquisaPart {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #0066cc;
+      color: white;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+    button:hover {
+      background-color: #004a99;
+    }
+    .gallery {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      
+    }
+    .image-item {
+      width: 240px;
+      background: #222;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #000;
+      text-align: center;
+    }
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .image-item p {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
